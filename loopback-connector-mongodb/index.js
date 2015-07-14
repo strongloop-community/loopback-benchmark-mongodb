@@ -26,9 +26,6 @@ function resetTestState() {
 
 var suite = new Benchmark.Suite;
 suite
-  .on('start', function() {
-    // console.log('#', new Date());
-  })
   .add('create', {
     defer: true,
     fn: function(deferred) {
@@ -71,10 +68,9 @@ suite
     onComplete: resetTestState
   })
   .on('cycle', function(event) {
-    console.log(String(event.target));
+    console.log('- ' + String(event.target));
   })
   .on('complete', function() {
-    // console.log();
     Todo.destroyAll();
     // ds.disconnect();
     process.exit();

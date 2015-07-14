@@ -20,9 +20,6 @@ MongoClient.connect('mongodb://' + host + ':' + port + '/' + database,
 
   var suite = new Benchmark.Suite;
   suite
-    .on('start', function() {
-      // console.log('#', new Date());
-    })
     .add('create', {
       defer: true,
       fn: function(deferred) {
@@ -67,10 +64,9 @@ MongoClient.connect('mongodb://' + host + ':' + port + '/' + database,
       onComplete: resetTestState
     })
     .on('cycle', function(event) {
-      console.log(String(event.target));
+      console.log('- ' + String(event.target));
     })
     .on('complete', function() {
-      // console.log();
       Todo.drop();
       db.close();
     })
