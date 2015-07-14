@@ -1,0 +1,25 @@
+readonly curdir=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+logfile=$curdir/results.md
+start=$(date +%s)
+echo 'benchmarking...'
+echo "# $(date)" >> $logfile
+echo >> $logfile
+echo '## loopback-connector-mongodb' >> $logfile
+node loopback-connector-mongodb >> $logfile
+echo '33% done'
+echo >> $logfile
+echo '## mongoose' >> $logfile
+node mongoose >> $logfile
+echo '66% done'
+echo >> $logfile
+echo '## mongodb native driver' >> $logfile
+node mongodb >> $logfile
+end=$(date +%s)
+took=$(expr $end - $start)s
+echo >> $logfile
+echo "# Took" >> $logfile
+echo $took >> $logfile
+echo >> $logfile
+echo '---' >> $logfile
+echo >> $logfile
+echo "Took $took"

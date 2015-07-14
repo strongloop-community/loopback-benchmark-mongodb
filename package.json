@@ -1,0 +1,18 @@
+{
+  "name": "loopback-benchmark-mongodb",
+  "version": "1.0.0",
+  "description": "LoopBack benchmarks for MongoDB scenarios.",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "author": "Simon Ho <simon@strongloop.com> (http://github.com/superkhau)",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "benchmark": "^1.0.0",
+    "loopback-connector-mongodb": "^1.11.3",
+    "loopback-datasource-juggler": "^2.33.1",
+    "mongodb": "^2.0.36",
+    "mongoose": "^4.0.7"
+  }
+}
