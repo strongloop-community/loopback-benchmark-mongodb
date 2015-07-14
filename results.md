@@ -1,19 +1,19 @@
-# Tue 14 Jul 2015 01:36:44 PDT
+# Tue 14 Jul 2015 11:19:08 PDT
 
 ## loopback-connector-mongodb
-create x 325 ops/sec ±2.61% (72 runs sampled)
-find x 497 ops/sec ±1.79% (74 runs sampled)
-find with a simple filter x 485 ops/sec ±2.25% (74 runs sampled)
+- create x 369 ops/sec ±1.97% (80 runs sampled)
+- find x 544 ops/sec ±1.67% (81 runs sampled)
+- find with a simple filter x 541 ops/sec ±1.42% (70 runs sampled)
 
 ## mongoose
-create x 326 ops/sec ±2.78% (72 runs sampled)
-find x 419 ops/sec ±1.80% (78 runs sampled)
-find with a simple filter x 477 ops/sec ±2.24% (71 runs sampled)
+ - create x 360 ops/sec ±2.19% (76 runs sampled)
+ - find x 501 ops/sec ±1.79% (80 runs sampled)
+ - find with a simple filter x 520 ops/sec ±1.59% (49 runs sampled)
 
 ## mongodb native driver
-create x 451 ops/sec ±2.14% (73 runs sampled)
-find x 547 ops/sec ±1.67% (75 runs sampled)
-find with a simple filter x 561 ops/sec ±2.18% (44 runs sampled)
+- create x 370 ops/sec ±1.92% (74 runs sampled)
+- find x 599 ops/sec ±1.19% (81 runs sampled)
+- find with a simple filter x 608 ops/sec ±1.46% (45 runs sampled)
 
 # Took
 55s
