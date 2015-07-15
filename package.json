@@ -9,10 +9,17 @@
   "author": "Simon Ho <simon@strongloop.com> (http://github.com/superkhau)",
   "license": "UNLICENSED",
   "dependencies": {
+    "async": "^1.3.0",
     "benchmark": "^1.0.0",
+    "body-parser": "^1.13.2",
+    "compression": "^1.5.1",
+    "cors": "^2.7.1",
+    "express": "^4.13.1",
     "loopback-connector-mongodb": "^1.11.3",
     "loopback-datasource-juggler": "^2.33.1",
     "mongodb": "^2.0.36",
-    "mongoose": "^4.0.7"
+    "mongoose": "^4.0.7",
+    "request": "^2.58.0",
+    "serve-favicon": "^2.3.0"
   }
 }

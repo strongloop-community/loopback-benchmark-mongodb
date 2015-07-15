@@ -1,6 +1,9 @@
 var MongoClient = require('mongodb').MongoClient;
 var config = require('../config');
 var Benchmark = require('benchmark');
+var request = require('request');
+var async = require('async');
+var app = require('./app');
 
 var host = process.env.LB_HOST || config.database.host;
 var port = process.env.LB_PORT || config.database.port;
@@ -18,13 +21,20 @@ MongoClient.connect('mongodb://' + host + ':' + port + '/' + database,
     Todo.drop();
   }
 
+  var server;
+  var url = 'http://' + config.server.host + ':' + config.server.port;
   var suite = new Benchmark.Suite;
   suite
+    .on('start', function() {
+      server = app.listen(config.server.port);
+    })
     .add('create', {
       defer: true,
       fn: function(deferred) {
-        Todo.insert({
-          content: 'Buy eggs' + (uniqueValue++)
+        request({
+          url: url + '/api/todos',
+          method: 'put',
+          json: {content: 'Buy eggs' + (uniqueValue++)}
         }, function() {
           deferred.resolve();
         });
@@ -34,32 +44,40 @@ MongoClient.connect('mongodb://' + host + ':' + port + '/' + database,
     .add('find', {
       defer: true,
       fn: function(deferred) {
-        Todo.find({}).toArray(function() {
+        request(url + '/api/todos', function(err, response, body) {
           deferred.resolve();
         });
       },
       onStart: function() {
-        Todo.insert([
-          {content: 'Buy eggs'},
-          {content: 'Buy milk'},
-          {content: 'Buy cheese'}
-        ])
+        request({
+          url: url + '/api/todos',
+          method: 'put',
+          json: [
+            {content: 'Buy eggs'},
+            {content: 'Buy milk'},
+            {content: 'Buy cheese'}
+          ]
+        });
       },
       onComplete: resetTestState
     })
     .add('find with a simple filter', {
       defer: true,
       fn: function(deferred) {
-        Todo.find({content: 'Buy milk'}).toArray(function() {
+        request(url + '/api/todos?content=Buy%20milk', function(err, response, body) {
           deferred.resolve();
         });
       },
       onStart: function() {
-        Todo.insert([
-          {content: 'Buy eggs'},
-          {content: 'Buy milk'},
-          {content: 'Buy cheese'}
-        ]);
+        request({
+          url: url + '/api/todos',
+          method: 'put',
+          json: [
+            {content: 'Buy eggs'},
+            {content: 'Buy milk'},
+            {content: 'Buy cheese'}
+          ]
+        });
       },
       onComplete: resetTestState
     })
@@ -67,8 +85,9 @@ MongoClient.connect('mongodb://' + host + ':' + port + '/' + database,
       console.log('- ' + String(event.target));
     })
     .on('complete', function() {
-      Todo.drop();
+      server.close();
       db.close();
+      process.exit();
     })
     .run({async: true});
 });

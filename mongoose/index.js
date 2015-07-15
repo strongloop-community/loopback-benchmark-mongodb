@@ -2,9 +2,9 @@ var mongoose = require('mongoose');
 var config = require('../config');
 var Benchmark = require('benchmark');
 
-var host = process.env.LB_HOST || config.host;
-var port = process.env.LB_PORT || config.port;
-var database = process.env.LB_DB || config.db;
+var host = process.env.LB_HOST || config.database.host;
+var port = process.env.LB_PORT || config.database.port;
+var database = process.env.LB_DB || config.database.name;
 mongoose.connect('mongodb://' + host + ':' + port + '/' + database);
 
 var Todo = mongoose.model('Todo', {content: String});

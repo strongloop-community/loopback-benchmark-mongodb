@@ -4,15 +4,19 @@ start=$(date +%s)
 echo 'benchmarking...'
 echo "# $(date)" >> $logfile
 echo >> $logfile
+echo '## express-mongodb' >> $logfile
+node express-mongodb >> $logfile
+echo '25% done'
+echo >> $logfile
 echo '## loopback-connector-mongodb' >> $logfile
 node loopback-connector-mongodb >> $logfile
-echo '33% done'
+echo '50% done'
 echo >> $logfile
 echo '## mongoose' >> $logfile
 node mongoose >> $logfile
-echo '66% done'
+echo '75% done'
 echo >> $logfile
-echo '## mongodb native driver' >> $logfile
+echo '## mongodb' >> $logfile
 node mongodb >> $logfile
 end=$(date +%s)
 took=$(expr $end - $start)s

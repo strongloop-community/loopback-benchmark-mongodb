@@ -3,9 +3,9 @@ var config = require('../config.json');
 var connector = require('loopback-connector-mongodb');
 var Benchmark = require('benchmark');
 
-var host = process.env.LB_HOST || config.host;
-var port = process.env.LB_PORT || config.port;
-var database = process.env.LB_DB || config.db;
+var host = process.env.LB_HOST || config.database.host;
+var port = process.env.LB_PORT || config.database.port;
+var database = process.env.LB_DB || config.database.name;
 var ds = new DataSource(connector, {
   host: host,
   port: port,
@@ -72,7 +72,6 @@ suite
   })
   .on('complete', function() {
     Todo.destroyAll();
-    // ds.disconnect();
     process.exit();
   })
   .run({async: true});
